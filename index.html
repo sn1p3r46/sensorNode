@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+ <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+ <script src="node_modules/socket.io-client/socket.io.js"></script>
+ <script src="http://www.chartjs.org/assets/Chart.min.js"></script>
+
+ <script>
+
+
+ count = 0;
+ var socket = io.connect('http://localhost:3000');  //enter the IP of your beaglebone and port you are using in app.js
+ socket.on('sensors', function (data) { //append sensors to table
+
+ 	data.forEach(function (d) {
+ 	var html = '<tr class=sensore ><td>' + d + '</td><td id="' + d + '"></td></tr>';
+ 		$('#temps').append(html);
+ 	});
+ });
+
+ //update corresponding row with sensor value
+ socket.on('temps', function (data) {
+     count=count+1;
+     console.log(count);
+ 	$('#' + data.id).html(data.value);
+     if((count%4)==0){updateChart(data.value);}
+ });
+
+socket.on('disconnect', function () {
+  $( ".sensore" ).remove();
+  alert('Socket is disconnected.');
+
+});
+
+
+
+
+ </script>
+</head>
+<body>
+<h1>TEST</h1>
+
+<div class="container">
+ <table class="table" id="temps">
+ <thead>
+ <tr>
+ <th>Sensor ID</th>
+ <th>Temperature (celsius)</th>
+ </tr>
+ </thead>
+ </table>
+</div>
+<div style="text-align: center;">
+<canvas id="updating-chart" width="500" height="300"></canvas>
+</body>
+<script>
+var arr=(function(a,b){while(a--)b[a]=a;return b})(25,[]);
+var canvas = document.getElementById('updating-chart'),
+    ctx = canvas.getContext('2d'),
+    startingData = {
+      labels: arr,
+      datasets: [
+          {
+              fillColor: "rgba(32,123,220,0.2)",
+              strokeColor: "rgba(220,220,220,1)",
+              pointColor: "rgba(220,220,220,1)",
+              pointStrokeColor: "#fff",
+              data: arr
+          }
+      ]
+    },
+    latestLabel = startingData.labels[6];
+
+// Reduce the animation steps for demo clarity.
+var myLiveChart = new Chart(ctx).Line(startingData, {
+        animationSteps: 10,
+        scaleOverride : true,
+        scaleSteps : 10,
+        scaleStepWidth : 12,
+        scaleStartValue : 0 });
+
+
+function updateChart(value){
+  // Add two random numbers for each dataset
+  myLiveChart.addData([value], ++latestLabel);
+  // Remove the first point so we dont just add values forever
+  myLiveChart.removeData();
+};
+
+</script>
+
+
+</html>
