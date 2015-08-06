@@ -1,3 +1,4 @@
 # sensorNode
-A little experiment, to simulate real time sensor readings realtime plotting and data visualization using socket.io   
+A little experiment, to simulate a realtime sensor data producer,
+realtime plotting and data visualization using socket.io.
 
