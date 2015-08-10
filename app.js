@@ -1,4 +1,6 @@
 
+
+
 var staticServer = require('./staticServer.js');
 staticServer.startme(connect,serveStatic);
 var io = require('socket.io').listen(3000);
