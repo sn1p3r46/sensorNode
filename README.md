@@ -4,8 +4,12 @@ realtime plotting and data visualization using socket.io and nodejs.
 
 This code contains both server and client code.
 
+# Dependences:
+	nodejs
+	npm
+	bower
 
-# install:
+# Install:
 
 	bower install
 
@@ -13,4 +17,4 @@ then
 
 	node app.js
 	
-open browser and go to localhost:2015
+open browser type localhost:2015
