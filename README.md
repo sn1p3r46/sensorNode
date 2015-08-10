@@ -11,10 +11,14 @@ This code contains both server and client code.
 
 # Install:
 
+	git clone https://github.com/sn1p3r46/sensorNode.git
+	
 	bower install
 
 then
 
 	node app.js
+
+finally:
 	
-open browser type localhost:2015
+	open browser type localhost:2015
