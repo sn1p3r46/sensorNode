@@ -33,3 +33,4 @@ function updateChart(value) {
       // Remove the first point so we dont just add values forever
       myLiveChart.removeData();
 };
+
