@@ -21,4 +21,4 @@ then
 
 finally:
 	
-	open browser type localhost:2015
+	open your favourite browser and type localhost:2015
