@@ -30,7 +30,6 @@ socket.on('disconnect', function () {
     $(".csensor").remove();
     alert('Socket is disconnected.');
 
-
 });
 
 socket.on('sensorValues', function (values) {
