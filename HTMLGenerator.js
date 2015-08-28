@@ -1,3 +1,4 @@
+
 _begin = "<"
 _end = ">"
 _slash = "/"
@@ -23,6 +24,12 @@ function NEWTag(tag, HTMLclass, id, content) {
 	}
     }
 }
+
+
+var td   =  new NEWTag("td",null,null,"sensore").getFullTag()+new NEWTag("td",null,"sensore",null).getFullTag();
+var tr   =  new NEWTag("tr","sensore",null,td).getFullTag();
+
+console.log(tr)
 
 ciaone = new NEWTag("h2","classedelCAZZO","IDdelCAZZO","contenutoDERCAZZO").getFullTag();
 
