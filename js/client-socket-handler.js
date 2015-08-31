@@ -67,10 +67,12 @@ function updateChart(value) {
     myLiveChart.removeData();
 };
 
-var MyLiveCharts, contexts, canvases;
+var MyLiveCharts, contexts, canvases, fullChartsData;
+fullChartsData = {}; 
 
 socket.on('sensors', function (data) { //append sensors to table
     data.forEach(function (d) {
+        fullChartsData[d] = {};
         var td = new NEWTag("td", null, null, d).getFullTag() + new NEWTag("td", null, d, null).getFullTag();
         var tr = new NEWTag("tr", "sensore", null, td).getFullTag();
         var html = tr;
@@ -79,12 +81,16 @@ socket.on('sensors', function (data) { //append sensors to table
         var html = '<canvas class=csensor style="width: 500px; height: 300px;" id="c' + d + '" width="500" height="300"></canvas>';
         $('#charts-container').append(html);
     });
-
+    console.log(fullChartsData);
     canvases = $(".csensor");
+    console.log(canvases);
     MyLiveCharts = new Array(canvases.length);
     contexts = new Array(canvases.length);
     
+    
     for (var i = 0; i < canvases.length; i++) {
+        
+        
         contexts[i] = canvases[i].getContext('2d');
         MyLiveCharts[i] = new Chart(contexts[i]).Line(startingData, {
             animationSteps: 10,
