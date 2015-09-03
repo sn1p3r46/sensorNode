@@ -14,7 +14,7 @@ var canvas = document.getElementById('updating-chart'),
                   }
             ]
       },
-      latestLabel = startingData.labels[6];
+      latestLabel = startingData.labels[0];
       
 // Reduce the animation steps for demo clarity.
       

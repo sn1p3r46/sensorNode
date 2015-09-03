@@ -43,7 +43,7 @@ var canvas = document.getElementById('updating-chart'),
             }
         ]
     },
-    latestLabel = startingData.labels[6];
+    latestLabel = startingData.labels[0];
       
 // Reduce the animation steps for demo clarity.
       
@@ -58,21 +58,21 @@ var myLiveChart = new Chart(ctx).Line(startingData, {
 
 var arr = (function (a, b) { while (a--) b[a] = a; return b })(25, []);
 var startingData = { labels: arr, datasets: [{fillColor: "rgba(151,187,205,0.2)",strokeColor: "rgba(151,187,205,1)",pointColor: "rgba(151,187,205,1)",pointStrokeColor: "#fff", data: arr}]};
-var latestLabel = startingData.labels[6];
+var latestLabel = startingData.labels[24];
 
-function updateChart(value) {
+//function updateChart(value) {
     // Add two random numbers for each dataset
-    myLiveChart.addData([value], ++latestLabel);
+  //  myLiveChart.addData([value], ++latestLabel);
     // Remove the first point so we dont just add values forever
-    myLiveChart.removeData();
-};
+   // myLiveChart.removeData();
+//};
 
 var MyLiveCharts, contexts, canvases, fullChartsData;
 fullChartsData = {}; 
 
 socket.on('sensors', function (data) { //append sensors to table
     data.forEach(function (d) {
-        fullChartsData[d] = {};
+        //fullChartsData[d] = {};
         var td = new NEWTag("td", null, null, d).getFullTag() + new NEWTag("td", null, d, null).getFullTag();
         var tr = new NEWTag("tr", "sensore", null, td).getFullTag();
         var html = tr;
@@ -81,9 +81,9 @@ socket.on('sensors', function (data) { //append sensors to table
         var html = '<canvas class=csensor style="width: 500px; height: 300px;" id="c' + d + '" width="500" height="300"></canvas>';
         $('#charts-container').append(html);
     });
-    console.log(fullChartsData);
+    //console.log(fullChartsData);
     canvases = $(".csensor");
-    console.log(canvases);
+    //console.log(canvases);
     MyLiveCharts = new Array(canvases.length);
     contexts = new Array(canvases.length);
     
@@ -99,7 +99,9 @@ socket.on('sensors', function (data) { //append sensors to table
             scaleStepWidth: 12,
             scaleStartValue: 0
         });
+        fullChartsData[data[i]] = MyLiveCharts[i]//.chart.canvas.id;
     }
+    //console.log(fullChartsData);
     //console.log(contexts[0]);
     //console.log(MyLiveCharts[0]);
     //console.log(canvases[0]);
@@ -125,8 +127,15 @@ socket.on('disconnect', function () {
 
 socket.on('sensorValues', function (values) {
     //console.log(values);
+    latestLabel = latestLabel +1;
     values.data.forEach(function (object) {
     // console.log(object.id,object.value);
     $('#' + object.id).html(object.value);
+    fullChartsData[object.id].addData([object.value], 1)
+    console.log(latestLabel);
+    console.log("--------------");
+    console.log(object.value);
+    fullChartsData[object.id].removeData();
     });
+
 });
