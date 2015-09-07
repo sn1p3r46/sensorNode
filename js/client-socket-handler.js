@@ -86,8 +86,7 @@ socket.on('sensors', function (data) { //append sensors to table
     //console.log(canvases);
     MyLiveCharts = new Array(canvases.length);
     contexts = new Array(canvases.length);
-    
-    
+ 
     for (var i = 0; i < canvases.length; i++) {
         
         
@@ -99,7 +98,8 @@ socket.on('sensors', function (data) { //append sensors to table
             scaleStepWidth: 12,
             scaleStartValue: 0
         });
-        fullChartsData[data[i]] = MyLiveCharts[i]//.chart.canvas.id;
+        fullChartsData[data[i]] = MyLiveCharts[i]
+        //.chart.canvas.id;
     }
     //console.log(fullChartsData);
     //console.log(contexts[0]);
@@ -122,19 +122,20 @@ socket.on('disconnect', function () {
     $(".sensore").remove();
     $(".csensor").remove();
     alert('Socket is disconnected.');
-
 });
 
 socket.on('sensorValues', function (values) {
+    //console.log("VALUES:");
     //console.log(values);
     latestLabel = latestLabel +1;
     values.data.forEach(function (object) {
+    //console.log(object);
     // console.log(object.id,object.value);
-    $('#' + object.id).html(object.value);
-    fullChartsData[object.id].addData([object.value], 1)
-    console.log(latestLabel);
-    console.log("--------------");
-    console.log(object.value);
+    //$('#' + object.id).html(object.value);
+    fullChartsData[object.id].addData(object.value, 1);
+    //console.log(latestLabel);
+    //console.log("--------------");
+    //console.log(object.value);
     fullChartsData[object.id].removeData();
     });
 

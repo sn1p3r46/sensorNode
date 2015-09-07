@@ -23,7 +23,7 @@ function sensorwork() {
     var data = [];
     console.log(io.sockets.server.engine.clientsCount);
     sensorIDs.forEach(function (id) {
-        var sensor = { 'id': id, 'value': Math.random() * (100 - 10) + 10 };
+        var sensor = { 'id': id, 'value': Math.random() * (100 - 70) + 70 };
         data.push(sensor);
         //send temperature reading out to connected clients
         //var value = Math.random() * (100 - 70) + 70;
