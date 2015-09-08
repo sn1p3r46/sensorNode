@@ -132,7 +132,7 @@ socket.on('sensorValues', function (values) {
     //console.log(object);
     // console.log(object.id,object.value);
     //$('#' + object.id).html(object.value);
-    fullChartsData[object.id].addData(object.value, 1);
+    fullChartsData[object.id].addData([object.value], 1)
     //console.log(latestLabel);
     //console.log("--------------");
     //console.log(object.value);
